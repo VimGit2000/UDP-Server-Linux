@@ -1,5 +1,6 @@
 #include "UServer.h"
 
+const char *hello = "Message delivered";
 
 UServer::UServer(/* args */)
 {
@@ -43,6 +44,7 @@ UServer::UServer(/* args */)
         countBytes = recvfrom(sockfd, (char *)buffer, MAXLINE,  MSG_WAITALL, ( struct sockaddr *) &cliaddr, ( socklen_t *)&lenght );
         buffer[countBytes] = '\0';
         std::cout <<"Client Send:" << buffer << std::endl;
+        SendMessage();
       //  sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &cliaddr,lenght);
     }
  }
@@ -50,8 +52,9 @@ UServer::UServer(/* args */)
 
 void UServer::SendMessage()
 {
-    //memset(&cliaddr, 0, sizeof(cliaddr));
-   // sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &cliaddr,lenght);
+   lenght  = sizeof(cliaddr);  // len is value / resuslt
+    memset(&cliaddr, 0, sizeof(cliaddr));
+    sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &cliaddr,lenght);
 }
 
 
